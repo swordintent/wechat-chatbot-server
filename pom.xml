@@ -25,7 +25,7 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
-        <docker.image.prefix>wechat-chatbot-server</docker.image.prefix>
+        <docker.image.prefix>swordintent</docker.image.prefix>
     </properties>
 
     <dependencies>
