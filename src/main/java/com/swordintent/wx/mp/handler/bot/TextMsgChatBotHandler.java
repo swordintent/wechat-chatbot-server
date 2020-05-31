@@ -31,19 +31,25 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
         String responseContent = "好像出错了";
+        String userInputContent = "";
+        String fromUser = "";
         try {
-            String userInputContent = getTextContent(wxMessage);
-            String fromUser = wxMessage.getFromUser();
-            String nlpResponse = getAutoResponse(userInputContent, fromUser);
+            userInputContent = getUserInputContent(wxMessage);
+            fromUser = getFromUser(wxMessage);
+            String nlpResponse = getNlpAutoResponse(userInputContent, fromUser);
             responseContent = Optional.ofNullable(nlpResponse).orElse(responseContent);
-            savelog(fromUser, userInputContent, responseContent);
+            saveLog(fromUser, userInputContent, responseContent);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(String.format("user:%s request:%s response:%s", fromUser, userInputContent, responseContent), e);
         }
         return text(wxMessage, weixinService, responseContent);
     }
 
-    private void savelog(String fromUser, String userInputContent, String responseContent) {
+    private String getFromUser(WxMpXmlMessage wxMessage) {
+        return wxMessage.getFromUser();
+    }
+
+    private void saveLog(String fromUser, String userInputContent, String responseContent) {
         if(StringUtils.isAnyBlank(fromUser, userInputContent, responseContent)){
             return;
         }
@@ -51,10 +57,18 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
         chatInfoDo.setOpenid(fromUser);
         chatInfoDo.setReqContent(userInputContent);
         chatInfoDo.setRespContent(responseContent);
-        chatInfoMapper.insert(chatInfoDo);
+        doSaveLog(chatInfoDo);
     }
 
-    private String getAutoResponse(String queryContent, String fromUser) throws Exception {
+    private void doSaveLog(ChatInfoDo chatInfoDo) {
+        try{
+            chatInfoMapper.insert(chatInfoDo);
+        }catch (Exception e){
+            logger.warn("save log to db error, please set db params correctly", e);
+        }
+    }
+
+    private String getNlpAutoResponse(String queryContent, String fromUser) throws Exception {
         if(StringUtils.isEmpty(queryContent)){
             return null;
         }
@@ -68,7 +82,7 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
         return null;
     }
 
-    private String getTextContent(WxMpXmlMessage wxMessage) {
+    private String getUserInputContent(WxMpXmlMessage wxMessage) {
         String ct = wxMessage.getContent();
         if(StringUtils.isEmpty(ct)){
             ct = wxMessage.getRecognition();
