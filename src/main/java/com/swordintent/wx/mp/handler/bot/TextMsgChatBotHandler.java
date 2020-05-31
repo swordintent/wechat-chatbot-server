@@ -84,7 +84,7 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
     }
 
     private String getVoiceMediaId(WxMpXmlMessage wxMessage, WxMpService weixinService, String synthesis) throws IOException, WxErrorException {
-        File tempFile = File.createTempFile(getFromUser(wxMessage),"mp3");
+        File tempFile = File.createTempFile(getFromUser(wxMessage),".mp3");
         FileUtils.writeByteArrayToFile(tempFile, Base64Utils.decodeFromString(synthesis));
         WxMediaUploadResult voice = weixinService.getMaterialService().mediaUpload("voice", tempFile);
         return voice.getMediaId();
