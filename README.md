@@ -35,6 +35,8 @@ docker run --net=host -e SERVER_PORT=9090 \
 
 # 版权说明
 
-本项目微信依赖[WxJava - 微信开发 Java SDK（开发工具包）](https://github.com/Wechat-Group/WxJava)
+微信公众号部分依赖[WxJava - 微信开发 Java SDK（开发工具包）](https://github.com/Wechat-Group/WxJava)
+
+腾讯AI部分依赖[xshuai/taip](https://gitee.com/xshuai/taip)
 
 站点层部分代码参考自[binarywang/weixin-java-cp-demo](https://github.com/binarywang/weixin-java-cp-demo)

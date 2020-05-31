@@ -19,6 +19,6 @@ spring:
         username: ${DB_USER}
         password: ${DB_PASSWORD}
 ai:
-    qq:
+    tencent:
         appid: ${AI_APPID}
         appkey: ${AI_APPKEY}
