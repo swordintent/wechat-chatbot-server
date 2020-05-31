@@ -22,6 +22,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 @Component
 @AllArgsConstructor
@@ -42,11 +44,13 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
 
     private final ChatInfoMapper chatInfoMapper;
 
+    private static final String ERROR_RESPONSE = "好像出错了";
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
-        String responseContent = "好像出错了";
+        String responseContent = ERROR_RESPONSE;
         String userInputContent = "";
         String fromUser = "";
         try {
@@ -62,10 +66,16 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
     }
 
     private WxMpXmlOutMessage response(WxMpXmlMessage wxMessage, WxMpService weixinService, String responseContent) {
-        //尽量利用语音回复，若语音暂时不可用，则返回文字消息
-        WxMpXmlOutMessage wxMpXmlOutMessage = voiceResponse(wxMessage, weixinService, responseContent);
-        return Optional.ofNullable(wxMpXmlOutMessage)
-                .orElse(text(wxMessage, weixinService, responseContent));
+        if(StringUtils.equals(ERROR_RESPONSE, responseContent)){
+            return text(wxMessage, weixinService, responseContent);
+        }
+        //随机返回语音数据
+        if(RandomUtils.nextInt(1, 10) == 1){
+            WxMpXmlOutMessage voiceResponse = voiceResponse(wxMessage, weixinService, responseContent);
+            return Optional.ofNullable(voiceResponse)
+                    .orElse(text(wxMessage, weixinService, responseContent));
+        }
+        return text(wxMessage, weixinService, responseContent);
     }
 
     private WxMpXmlOutMessage voiceResponse(WxMpXmlMessage wxMessage, WxMpService weixinService, String responseContent) {
