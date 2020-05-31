@@ -33,3 +33,12 @@ docker run --net=host -e SERVER_PORT=9090 \
 
 ![腾讯AI配置](https://raw.githubusercontent.com/liuhe36/resource/master/wechat-chatbot-server/images/tencent-ai-config.png)
 
+# 版权说明
+
+本项目微信依赖WxJava - 微信开发 Java SDK（开发工具包）
+
+https://github.com/Wechat-Group/WxJava
+
+站点层部分代码参考自weixin-java-cp-demo
+
+https://github.com/binarywang/weixin-java-cp-demo
