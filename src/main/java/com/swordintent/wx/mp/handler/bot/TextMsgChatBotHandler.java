@@ -85,6 +85,7 @@ public class TextMsgChatBotHandler extends AbstractHandler implements WxMpMessag
     private String getUserInputContent(WxMpXmlMessage wxMessage) {
         String ct = wxMessage.getContent();
         if(StringUtils.isEmpty(ct)){
+            //打开语音识别结果
             ct = wxMessage.getRecognition();
         }
         return ct;
