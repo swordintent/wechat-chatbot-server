@@ -4,12 +4,16 @@
 ![maven compile and publish to docker hub](https://github.com/liuhe36/wechat-chatbot-server/workflows/maven%20compile%20and%20publish%20to%20docker%20hub/badge.svg)
 
 # 使用方法
+
 ##注册一个公众号
 https://mp.weixin.qq.com/
+
 ##注册腾讯AI平台
 https://ai.qq.com/product/nlpchat.shtml
+
 ##初始化数据库（可选）
 执行`src/main/resource/scripts/init-db.sql`创建相关表
+
 ##启动服务
 本项目镜像已同步推送至dockerhub，可直接采用docker方式启动，相关配置参数通过docker的环境变量方式传入，参考命令如下
 ```
