@@ -27,11 +27,11 @@ docker run --net=host -e SERVER_PORT=9090 \
 
 # 微信公众号平台
 
-![微信公众平台配置](https://raw.githubusercontent.com/liuhe36/resource/master/wechat-chatbot-server/images/wechat-config.png)
+![微信公众平台配置](https://liu-github.oss-cn-huhehaote.aliyuncs.com/wechat-chatbot-server/wechat-config.png)
 
 # 腾信AI聊天机器人
 
-![腾讯AI配置](https://raw.githubusercontent.com/liuhe36/resource/master/wechat-chatbot-server/images/tencent-ai-config.png)
+![腾讯AI配置](https://liu-github.oss-cn-huhehaote.aliyuncs.com/wechat-chatbot-server/tencent-ai-config.png)
 
 # 版权说明
 
