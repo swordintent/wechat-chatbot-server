@@ -6,6 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
+/**
+ * 腾讯AI配置属性
+ * @author liuhe
+ */
 @Data
 @ConfigurationProperties(prefix = "ai.tencent")
 public class TencentAiProperties {

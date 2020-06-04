@@ -22,7 +22,7 @@ public class SubscribeHandler extends AbstractHandler {
         this.logger.info("subscribe openid: " + wxMessage.getFromUser());
 
         try {
-            return new TextBuilder().build("欢迎关注本微信，请开始聊天吧", wxMessage, weixinService);
+            return new TextBuilder("欢迎关注本微信，请开始聊天吧").build(wxMessage, weixinService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

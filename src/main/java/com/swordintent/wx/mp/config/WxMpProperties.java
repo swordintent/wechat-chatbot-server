@@ -6,6 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
+/**
+ * 微信公众号配置属性
+ * @author liuhe
+ */
 @Data
 @ConfigurationProperties(prefix = "wx.mp")
 public class WxMpProperties {

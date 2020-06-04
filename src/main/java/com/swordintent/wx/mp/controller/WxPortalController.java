@@ -20,11 +20,18 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 
+/**
+ * 对接微信公众号API
+ * @author liuhe
+ */
 @Slf4j
 @AllArgsConstructor
 @RestController
 @RequestMapping("/portal/{appid}")
 public class WxPortalController {
+
+    public static final String WECHAT_API_ENCRYPT_METHOD = "aes";
+
     private final WxMpService wxService;
     private final WxMpMessageRouter messageRouter;
 
@@ -36,7 +43,7 @@ public class WxPortalController {
                           @RequestParam(name = "echostr", required = false) String echostr) {
 
         log.info("from wechat auth message - [{}, {}, {}, {}]", signature,
-            timestamp, nonce, echostr);
+                timestamp, nonce, echostr);
         if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
             throw new IllegalArgumentException("illegal request！");
         }
@@ -61,8 +68,8 @@ public class WxPortalController {
                        @RequestParam(name = "encrypt_type", required = false) String encType,
                        @RequestParam(name = "msg_signature", required = false) String msgSignature) {
         log.info("from wechat message - [signature=[{}], encType=[{}], msgSignature=[{}],"
-                + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
-             signature, encType, msgSignature, timestamp, nonce, requestBody);
+                        + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
+                signature, encType, msgSignature, timestamp, nonce, requestBody);
 
         if (!this.wxService.switchover(appid)) {
             throw new IllegalArgumentException(String.format("can't find appid=[%s] 's config！", appid));
@@ -82,10 +89,10 @@ public class WxPortalController {
             }
 
             out = outMessage.toXml();
-        } else if ("aes".equalsIgnoreCase(encType)) {
-            // aes encrypte
+        } else if (WECHAT_API_ENCRYPT_METHOD.equalsIgnoreCase(encType)) {
+            // aes encrypt
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
-                timestamp, nonce, msgSignature);
+                    timestamp, nonce, msgSignature);
             log.debug("request decrypted-{} ", inMessage.toString());
             WxMpXmlOutMessage outMessage = this.route(inMessage);
             if (outMessage == null) {

@@ -4,7 +4,7 @@ import com.swordintent.wx.mp.handler.LogHandler;
 import com.swordintent.wx.mp.handler.MsgHandler;
 import com.swordintent.wx.mp.handler.SubscribeHandler;
 import com.swordintent.wx.mp.handler.UnsubscribeHandler;
-import com.swordintent.wx.mp.handler.bot.TextMsgChatBotHandler;
+import com.swordintent.wx.mp.handler.bot.ChatBotHandler;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -21,6 +21,11 @@ import static me.chanjar.weixin.common.api.WxConsts.EventType.SUBSCRIBE;
 import static me.chanjar.weixin.common.api.WxConsts.EventType.UNSUBSCRIBE;
 import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType.*;
 
+/**
+ * 微信公众号配置
+ *
+ * @author liuhe
+ */
 @AllArgsConstructor
 @Configuration
 @EnableConfigurationProperties({WxMpProperties.class})
@@ -35,7 +40,7 @@ public class WxMpConfiguration {
 
     private final WxMpProperties properties;
 
-    private final TextMsgChatBotHandler textMsgChatBotHandler;
+    private final ChatBotHandler chatBotHandler;
 
     @Bean
     public WxMpService wxMpService() {
@@ -61,25 +66,41 @@ public class WxMpConfiguration {
     public WxMpMessageRouter messageRouter(WxMpService wxMpService) {
         final WxMpMessageRouter router = new WxMpMessageRouter(wxMpService);
 
-        // 记录所有事件的日志 （异步执行）
-        router.rule().handler(this.logHandler).next();
-
-        // 关注事件
-        router.rule().async(false).msgType(EVENT).event(SUBSCRIBE).handler(this.subscribeHandler).end();
-
-        // 取消关注事件
-        router.rule().async(false).msgType(EVENT).event(UNSUBSCRIBE).handler(this.unsubscribeHandler).end();
-
-        //文本消息-聊天
-        router.rule().async(false).msgType(TEXT).matcher(this.textMsgChatBotHandler).handler(this.textMsgChatBotHandler).end();
-
-        //语音消息-聊天
-        router.rule().async(false).msgType(VOICE).matcher(this.textMsgChatBotHandler).handler(this.textMsgChatBotHandler).end();
-
-        // 默认
-        router.rule().async(false).handler(this.msgHandler).end();
-
+        logMsg(router);
+        handleSubscribeMsg(router);
+        handleUnsubscribeMsg(router);
+        handleTextMsg(router);
+        handleVoiceMsg(router);
+        defaultHandle(router);
         return router;
+    }
+
+    private void handleVoiceMsg(WxMpMessageRouter router) {
+        //聊天
+        router.rule().async(false).msgType(VOICE).matcher(this.chatBotHandler).handler(this.chatBotHandler).end();
+    }
+
+    private WxMpMessageRouter defaultHandle(WxMpMessageRouter router) {
+        //兜底回复
+        return router.rule().async(false).handler(this.msgHandler).end();
+    }
+
+    private void handleTextMsg(WxMpMessageRouter router) {
+        //聊天
+        router.rule().async(false).msgType(TEXT).matcher(this.chatBotHandler).handler(this.chatBotHandler).end();
+    }
+
+    private WxMpMessageRouter logMsg(WxMpMessageRouter router) {
+        // 记录所有事件的日志，可继续执行
+        return router.rule().handler(this.logHandler).next();
+    }
+
+    private void handleUnsubscribeMsg(WxMpMessageRouter router) {
+        router.rule().async(false).msgType(EVENT).event(UNSUBSCRIBE).handler(this.unsubscribeHandler).end();
+    }
+
+    private void handleSubscribeMsg(WxMpMessageRouter router) {
+        router.rule().async(false).msgType(EVENT).event(SUBSCRIBE).handler(this.subscribeHandler).end();
     }
 
 }

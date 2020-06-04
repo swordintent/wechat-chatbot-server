@@ -7,6 +7,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 腾讯AI相关实体构造器
+ * @author liuhe
+ */
 @AllArgsConstructor
 @Configuration
 @EnableConfigurationProperties({TencentAiProperties.class})
