@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class TencentTtlSynthesis implements TtlSynthesisService {
+public class TencentTtlSynthesisImpl implements TtlSynthesisService {
 
     private final TAipSpeech tAipSpeech;
 

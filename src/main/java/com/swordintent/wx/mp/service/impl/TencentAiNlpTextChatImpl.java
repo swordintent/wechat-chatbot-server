@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class TencentAiNlpTextChat implements NlpTextChatService {
+public class TencentAiNlpTextChatImpl implements NlpTextChatService {
     private final TAipNlp tAipNlp;
 
     @Override
