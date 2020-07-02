@@ -1,4 +1,4 @@
-package com.swordintent.wx.mp.pojo.bot;
+package com.swordintent.wx.mp.dependency.impl.tencentai.dto;
 
 import lombok.Data;
 

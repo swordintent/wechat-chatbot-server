@@ -1,8 +1,8 @@
-package com.swordintent.wx.mp.service.impl;
+package com.swordintent.wx.mp.dependency.impl.tencentai;
 
 import cn.xsshome.taip.speech.TAipSpeech;
-import com.swordintent.wx.mp.pojo.bot.TencentAiTtlSynthesisRet;
-import com.swordintent.wx.mp.service.TtlSynthesisService;
+import com.swordintent.wx.mp.dependency.impl.tencentai.dto.TencentAiTtlSynthesisRet;
+import com.swordintent.wx.mp.dependency.TtlSynthesisService;
 import com.swordintent.wx.mp.utils.JsonUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

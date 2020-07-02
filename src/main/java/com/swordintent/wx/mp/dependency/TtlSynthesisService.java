@@ -1,4 +1,4 @@
-package com.swordintent.wx.mp.service;
+package com.swordintent.wx.mp.dependency;
 
 /**
  * 语音合成服务接口

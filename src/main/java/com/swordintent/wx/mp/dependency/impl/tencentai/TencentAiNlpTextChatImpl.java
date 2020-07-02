@@ -1,8 +1,8 @@
-package com.swordintent.wx.mp.service.impl;
+package com.swordintent.wx.mp.dependency.impl.tencentai;
 
 import cn.xsshome.taip.nlp.TAipNlp;
-import com.swordintent.wx.mp.pojo.bot.TencentAiNlpTextChatRet;
-import com.swordintent.wx.mp.service.NlpTextChatService;
+import com.swordintent.wx.mp.dependency.impl.tencentai.dto.TencentAiNlpTextChatRet;
+import com.swordintent.wx.mp.dependency.NlpTextChatService;
 import com.swordintent.wx.mp.utils.JsonUtils;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

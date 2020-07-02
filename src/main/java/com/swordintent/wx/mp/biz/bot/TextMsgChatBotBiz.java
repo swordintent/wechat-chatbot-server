@@ -2,9 +2,8 @@ package com.swordintent.wx.mp.biz.bot;
 
 import com.swordintent.wx.mp.builder.TextBuilder;
 import com.swordintent.wx.mp.builder.VoiceBuilder;
-import com.swordintent.wx.mp.helper.WechatFileUploader;
-import com.swordintent.wx.mp.service.NlpTextChatService;
-import com.swordintent.wx.mp.service.TtlSynthesisService;
+import com.swordintent.wx.mp.dependency.NlpTextChatService;
+import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -29,38 +28,41 @@ import java.util.Optional;
 @AllArgsConstructor
 public class TextMsgChatBotBiz {
 
-    private static final Logger logger = LoggerFactory.getLogger(TextMsgChatBotBiz.class);
-
     private final NlpTextChatService nlpTextChatService;
 
-    private final TtlSynthesisService ttlSynthesisService;
-
-    private final WechatFileUploader wechatFileUploader;
+    private final TtlSynthesisVoiceMediaService wechatVoiceMessageService;
 
     private final ChatBotInfoRecorder chatBotInfoRecorder;
 
-    private static final String CHAT_BOT_ERROR_RESPONSE = "好像出错了";
+    private static final String ERROR_RESPONSE = "好像出错了";
 
     public WxMpXmlOutMessage process(WxMpXmlMessage wxMessage,
                                      Map<String, Object> context, WxMpService weixinService,
                                      WxSessionManager sessionManager) throws Exception {
         String input = getUserInputContent(wxMessage);
         String fromUser = getFromUser(wxMessage);
-        //聊天，返回文本
         String botText = chatWithbot(input, fromUser);
-        WxMpXmlOutMessage outMessage = null;
-        if (useTtlSynthesis()) {
-            //需要返回语音，调用语音合成
-            outMessage = ttlSynthesis(wxMessage, weixinService, botText);
-        }
-        outMessage = Optional.ofNullable(outMessage).orElse(text(wxMessage, weixinService, botText));
+        recordChatInfo(input, fromUser, botText);
+        return buildTextOrVoiceOutMessage(wxMessage, weixinService, botText);
+    }
+
+    private void recordChatInfo(String input, String fromUser, String botText) {
         chatBotInfoRecorder.record(fromUser, input, botText);
+    }
+
+    private WxMpXmlOutMessage buildTextOrVoiceOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String botText) {
+        WxMpXmlOutMessage outMessage = null;
+        if (needVoiceMessage()) {
+            outMessage = generateVoiceOutMessage(wxMessage, weixinService, botText);
+        }
+        outMessage = Optional.ofNullable(outMessage)
+                .orElse(generateTextOutMessage(wxMessage, weixinService, botText));
         return outMessage;
     }
 
     private String chatWithbot(String userInputContent, String fromUser) throws Exception {
         String nlpResponse = nlpTextChatService.chat(fromUser, userInputContent);
-        return Optional.ofNullable(nlpResponse).orElse(CHAT_BOT_ERROR_RESPONSE);
+        return Optional.ofNullable(nlpResponse).orElse(ERROR_RESPONSE);
     }
 
     private String getFromUser(WxMpXmlMessage wxMessage) {
@@ -75,31 +77,18 @@ public class TextMsgChatBotBiz {
         return content;
     }
 
-    private WxMpXmlOutVoiceMessage ttlSynthesis(WxMpXmlMessage wxMessage, WxMpService weixinService, String responseContent) {
-        try {
-            byte[] ttlSynthesisResult = ttlSynthesisService.synthesis(responseContent);
-            if (ttlSynthesisResult == null) {
-                return null;
-            }
-            String mediaId = wechatFileUploader.uploadVoice(getFromUser(wxMessage), ttlSynthesisResult, weixinService);
-            return voice(wxMessage, weixinService, mediaId);
-        } catch (Exception e) {
-            logger.warn("ttlSynthesisService error", e);
-        }
-
-        return null;
-    }
-
-    private boolean useTtlSynthesis() {
-        //随机返回语音数据
+    private boolean needVoiceMessage() {
         return RandomUtils.nextInt(1, 10) == 1;
     }
 
-    private WxMpXmlOutVoiceMessage voice(WxMpXmlMessage wxMessage, WxMpService weixinService, String mediaId) {
-        return new VoiceBuilder(mediaId).build(wxMessage, weixinService);
+    private WxMpXmlOutVoiceMessage generateVoiceOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String content) {
+        String mediaId = wechatVoiceMessageService.ttlSynthesis(getFromUser(wxMessage), weixinService, content);
+        return Optional.ofNullable(mediaId)
+                .map(media -> new VoiceBuilder(media).build(wxMessage, weixinService))
+                .orElse(null);
     }
 
-    private WxMpXmlOutTextMessage text(WxMpXmlMessage wxMessage, WxMpService weixinService, String content) {
+    private WxMpXmlOutTextMessage generateTextOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String content) {
         return new TextBuilder(content).build(wxMessage, weixinService);
     }
 }

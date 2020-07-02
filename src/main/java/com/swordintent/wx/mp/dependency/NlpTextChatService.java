@@ -1,5 +1,8 @@
-package com.swordintent.wx.mp.service;
+package com.swordintent.wx.mp.dependency;
 
+/**
+ * 文本聊天机器人
+ */
 public interface NlpTextChatService {
 
     /**

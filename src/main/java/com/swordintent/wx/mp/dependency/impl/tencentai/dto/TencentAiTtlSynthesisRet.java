@@ -1,5 +1,6 @@
-package com.swordintent.wx.mp.pojo.bot;
+package com.swordintent.wx.mp.dependency.impl.tencentai.dto;
 
+import com.swordintent.wx.mp.dependency.impl.tencentai.dto.BaseTencentAiRet;
 import lombok.Data;
 
 @Data
