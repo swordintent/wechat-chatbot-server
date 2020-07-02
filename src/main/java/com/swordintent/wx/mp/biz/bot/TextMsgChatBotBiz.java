@@ -2,6 +2,7 @@ package com.swordintent.wx.mp.biz.bot;
 
 import com.swordintent.wx.mp.builder.TextBuilder;
 import com.swordintent.wx.mp.builder.VoiceBuilder;
+import com.swordintent.wx.mp.dao.bot.ChatBotInfoRecorder;
 import com.swordintent.wx.mp.dependency.NlpTextChatService;
 import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,6 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
 import org.apache.commons.lang3.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

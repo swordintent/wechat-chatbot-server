@@ -1,4 +1,4 @@
-package com.swordintent.wx.mp.biz.bot;
+package com.swordintent.wx.mp.dao.bot;
 
 import com.swordintent.wx.mp.helper.ExecutorHelper;
 import com.swordintent.wx.mp.mapper.ChatInfoMapper;
