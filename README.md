@@ -24,6 +24,25 @@ docker run --net=host -e SERVER_PORT=9090 \
     -e AI_APPID=替换 -e AI_APPKEY=替换 \
     shadowdk/wechat-chatbot-server
 ```
+也可使用docker配置文件进行环境变量传递
+```dockercmd
+docker run --net=host --env-file /opt/wechat/docker-env shadowdk/wechat-chatbot-server
+```
+docker-env文件如下
+```env-file
+SERVER_PORT=替换
+WX_APPID=替换
+WX_SECRET=替换
+WX_TOKEN=替换
+WX_AESKEY=替换
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=yourdbname
+DB_USER=yourusername
+DB_PASSWORD=yourpassword
+AI_APPID=替换
+AI_APPKEY=替换
+```
 
 # 微信公众号平台
 
