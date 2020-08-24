@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 腾讯AI平台聊天机器人实现
  * @author liuhe
  */
-@Service
+@Service("tencentAiNlpTextChatImpl")
 @AllArgsConstructor
 public class TencentAiNlpTextChatImpl implements NlpTextChatService {
     private final TAipNlp tAipNlp;

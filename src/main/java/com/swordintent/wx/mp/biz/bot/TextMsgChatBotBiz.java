@@ -13,8 +13,11 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
 import org.apache.commons.lang3.RandomUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Optional;
 
@@ -24,14 +27,16 @@ import java.util.Optional;
  * @author liuhe
  */
 @Component
-@AllArgsConstructor
 public class TextMsgChatBotBiz {
 
-    private final NlpTextChatService nlpTextChatService;
+    @Qualifier("tencentAiNlpTextChatImpl")
+    private NlpTextChatService nlpTextChatService;
 
-    private final TtlSynthesisVoiceMediaService wechatVoiceMessageService;
+    @Autowired
+    private TtlSynthesisVoiceMediaService wechatVoiceMessageService;
 
-    private final ChatBotInfoRecorder chatBotInfoRecorder;
+    @Autowired
+    private ChatBotInfoRecorder chatBotInfoRecorder;
 
     private static final String ERROR_RESPONSE = "好像出错了";
 

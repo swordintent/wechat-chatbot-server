@@ -1,5 +1,5 @@
 server:
-    port: ${SERVER_PORT}
+  port: ${SERVER_PORT}
 logging:
   level:
     org.springframework.web: INFO
@@ -13,12 +13,17 @@ wx:
         token: ${WX_TOKEN}
         aesKey: ${WX_AESKEY}
 spring:
-    datasource:
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
-        username: ${DB_USER}
-        password: ${DB_PASSWORD}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 ai:
-    tencent:
-        appid: ${AI_APPID}
-        appkey: ${AI_APPKEY}
+  tencent:
+    appid: ${AI_APPID}
+    appkey: ${AI_APPKEY}
+  baidu:
+    appid: ${BAIDU_AI_APPID}
+    appkey: ${BAIDU_AI_APPKEY}
+    secret-key: ${BAIDU_SECRET_KEY}
+    robot-id: ${BAIDU_ROBOT_ID}
