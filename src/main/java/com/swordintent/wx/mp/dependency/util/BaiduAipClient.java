@@ -25,16 +25,6 @@ public class BaiduAipClient extends AipNlp {
     public JSONObject robotChat(String uniqId, String sessionId, String userId, String content, HashMap options) {
         AipRequest request = new AipRequest();
         preOperation(request);
-
-//        request.addBody("version", "2.0");
-//        request.addBody("service_id", robotId);
-//        request.addBody("log_id", uniqId);
-//        request.addBody("session_id", sessionId);
-//        HashMap<String, Object> value = Maps.newHashMap();
-//        value.put("user_id", userId);
-//        value.put("query", content);
-//        String s = "{\"user_id\", 123, \"query\":\"你真好\"}";
-//        request.addBody("request", s);
         UnitRobotRequest unitRobotRequest = UnitRobotRequest.builder()
                 .log_id(uniqId)
                 .service_id(robotId)
