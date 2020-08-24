@@ -5,7 +5,6 @@ import com.swordintent.wx.mp.builder.VoiceBuilder;
 import com.swordintent.wx.mp.dao.bot.ChatBotInfoRecorder;
 import com.swordintent.wx.mp.dependency.NlpTextChatService;
 import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
-import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -13,11 +12,9 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
 import org.apache.commons.lang3.RandomUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,16 +26,20 @@ import java.util.Optional;
 @Component
 public class TextMsgChatBotBiz {
 
-    @Qualifier("tencentAiNlpTextChatImpl")
-    private NlpTextChatService nlpTextChatService;
+    private final NlpTextChatService nlpTextChatService;
 
-    @Autowired
-    private TtlSynthesisVoiceMediaService wechatVoiceMessageService;
+    private final TtlSynthesisVoiceMediaService wechatVoiceMessageService;
 
-    @Autowired
-    private ChatBotInfoRecorder chatBotInfoRecorder;
+    private final ChatBotInfoRecorder chatBotInfoRecorder;
 
     private static final String ERROR_RESPONSE = "好像出错了";
+
+
+    public TextMsgChatBotBiz(@Qualifier("tencentAiNlpTextChatImpl") NlpTextChatService nlpTextChatService, TtlSynthesisVoiceMediaService wechatVoiceMessageService, ChatBotInfoRecorder chatBotInfoRecorder) {
+        this.nlpTextChatService = nlpTextChatService;
+        this.wechatVoiceMessageService = wechatVoiceMessageService;
+        this.chatBotInfoRecorder = chatBotInfoRecorder;
+    }
 
     public WxMpXmlOutMessage process(WxMpXmlMessage wxMessage,
                                      Map<String, Object> context, WxMpService weixinService,

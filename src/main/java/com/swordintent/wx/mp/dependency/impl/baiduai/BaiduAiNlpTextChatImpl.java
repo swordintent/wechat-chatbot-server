@@ -42,7 +42,9 @@ public class BaiduAiNlpTextChatImpl implements NlpTextChatService {
                         .map(list -> list.get(0))
                         .map(x -> x.getAction_list())
                         .filter(actionItems -> actionItems.size() > 0)
-                        .map(actionItems -> actionItems.get(0)).map(actionItem -> actionItem.getSay()).orElseGet(null);
+                        .map(actionItems -> actionItems.get(0))
+                        .map(actionItem -> actionItem.getSay())
+                        .orElseGet(null);
             }).orElseGet(null);
         }
         return null;
