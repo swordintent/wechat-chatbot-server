@@ -1,4 +1,4 @@
-package com.swordintent.wx.mp.config;
+package com.swordintent.wx.mp.config.tencentai;
 
 import com.swordintent.wx.mp.utils.JsonUtils;
 import lombok.Data;

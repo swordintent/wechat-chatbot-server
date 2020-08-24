@@ -1,4 +1,4 @@
-package com.swordintent.wx.mp.config;
+package com.swordintent.wx.mp.config.tencentai;
 
 import cn.xsshome.taip.nlp.TAipNlp;
 import cn.xsshome.taip.speech.TAipSpeech;
