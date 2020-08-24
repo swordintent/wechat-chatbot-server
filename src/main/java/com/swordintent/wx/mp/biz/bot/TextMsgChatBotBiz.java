@@ -5,6 +5,7 @@ import com.swordintent.wx.mp.builder.VoiceBuilder;
 import com.swordintent.wx.mp.dao.bot.ChatBotInfoRecorder;
 import com.swordintent.wx.mp.dependency.NlpTextChatService;
 import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
+import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -35,7 +36,7 @@ public class TextMsgChatBotBiz {
     private static final String ERROR_RESPONSE = "好像出错了";
 
 
-    public TextMsgChatBotBiz(@Qualifier("tencentAiNlpTextChatImpl") NlpTextChatService nlpTextChatService, TtlSynthesisVoiceMediaService wechatVoiceMessageService, ChatBotInfoRecorder chatBotInfoRecorder) {
+    public TextMsgChatBotBiz(@Qualifier("baiduAiNlpTextChatImpl") NlpTextChatService nlpTextChatService, TtlSynthesisVoiceMediaService wechatVoiceMessageService, ChatBotInfoRecorder chatBotInfoRecorder) {
         this.nlpTextChatService = nlpTextChatService;
         this.wechatVoiceMessageService = wechatVoiceMessageService;
         this.chatBotInfoRecorder = chatBotInfoRecorder;
