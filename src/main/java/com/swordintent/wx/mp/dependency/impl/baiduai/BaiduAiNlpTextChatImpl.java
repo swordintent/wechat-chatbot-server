@@ -7,7 +7,6 @@ import com.swordintent.wx.mp.dependency.impl.baiduai.dto.RobotResponse;
 import com.swordintent.wx.mp.dependency.util.BaiduAipClient;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @author liuhe
  */
-@Service("baiduAiNlpTextChatImpl")
 @AllArgsConstructor
 public class BaiduAiNlpTextChatImpl implements NlpTextChatService {
 

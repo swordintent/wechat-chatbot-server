@@ -19,6 +19,9 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 ai:
+  cfg:
+    text-chat: tencent
+    ttl-synthesis: tencent
   tencent:
     appid: ${AI_APPID}
     appkey: ${AI_APPKEY}

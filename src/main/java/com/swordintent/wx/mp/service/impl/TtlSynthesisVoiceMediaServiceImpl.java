@@ -1,6 +1,5 @@
 package com.swordintent.wx.mp.service.impl;
 
-import com.swordintent.wx.mp.biz.bot.TextMsgChatBotBiz;
 import com.swordintent.wx.mp.dependency.TtlSynthesisService;
 import com.swordintent.wx.mp.helper.WechatFileUploader;
 import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
@@ -8,11 +7,11 @@ import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component
+@Service
 @AllArgsConstructor
 public class TtlSynthesisVoiceMediaServiceImpl implements TtlSynthesisVoiceMediaService {
 

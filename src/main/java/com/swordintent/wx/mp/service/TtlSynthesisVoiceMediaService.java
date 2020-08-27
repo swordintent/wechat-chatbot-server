@@ -4,6 +4,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 
 /**
  * 语音合成微信voice媒体id
+ * @author liuhe
  */
 public interface TtlSynthesisVoiceMediaService {
 
