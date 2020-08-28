@@ -26,10 +26,7 @@ public class BaiduAiNlpTextChatImplTest {
     @Test
     public void chat() throws Exception {
         String ret = baiduNlpTextChat.chat("123456", "你好");
-        assert ret != null;
         ret = baiduNlpTextChat.chat("123456", "我不好");
-        assert ret != null;
         ret = baiduNlpTextChat.chat("123456", "不知道");
-        assert ret != null;
     }
 }
