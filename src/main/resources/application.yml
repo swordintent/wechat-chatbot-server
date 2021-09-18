@@ -20,7 +20,7 @@ spring:
     password: ${DB_PASSWORD}
 ai:
   cfg:
-    text-chat: tencent
+    text-chat: baidu
     ttl-synthesis: tencent
   tencent:
     appid: ${AI_APPID}
