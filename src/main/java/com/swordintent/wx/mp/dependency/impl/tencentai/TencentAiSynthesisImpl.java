@@ -29,7 +29,8 @@ public class TencentAiSynthesisImpl implements TtlSynthesisService {
         req.setText(content);
         req.setSessionId(UUID.randomUUID().toString());
         req.setModelType(1L);
-        req.setVoiceType(101001L);
+//        req.setVoiceType(101001L);
+        req.setVoiceType(4L);
         req.setCodec("mp3");
 
         // 返回的resp是一个TextToVoiceResponse的实例，与请求对象对应
