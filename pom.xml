@@ -89,10 +89,17 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>cn.xsshome</groupId>
             <artifactId>taip</artifactId>
             <version>4.3.5</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+            <!-- go to https://search.maven.org/search?q=tencentcloud-sdk-java and get the latest version. -->
+            <!-- 请到https://search.maven.org/search?q=tencentcloud-sdk-java查询所有版本，最新版本如下 -->
+            <version>3.1.360</version>
         </dependency>
         <dependency>
             <groupId>com.baidu.aip</groupId>

@@ -1,7 +1,7 @@
 package com.swordintent.wx.mp.config.baiduai;
 
 import com.baidu.aip.speech.AipSpeech;
-import com.swordintent.wx.mp.dependency.util.BaiduAipClient;
+import com.swordintent.wx.mp.dependency.util.BaiduAiRobotClient;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +20,8 @@ public class BaiduAiConfiguration {
     private final BaiduAiProperties properties;
 
     @Bean
-    public BaiduAipClient baiduUnitClient() {
-        return new BaiduAipClient(properties.getAppid(), properties.getAppkey(), properties.getSecretKey(), properties.getRobotId());
+    public BaiduAiRobotClient baiduUnitClient() {
+        return new BaiduAiRobotClient(properties.getAppid(), properties.getAppkey(), properties.getSecretKey(), properties.getRobotId());
     }
 
     @Bean

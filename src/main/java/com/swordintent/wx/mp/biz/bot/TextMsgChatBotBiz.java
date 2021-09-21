@@ -13,6 +13,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -51,7 +52,7 @@ public class TextMsgChatBotBiz {
 
     private WxMpXmlOutMessage buildTextOrVoiceOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String botText) {
         WxMpXmlOutMessage outMessage = null;
-        if (needVoiceMessage()) {
+        if (needVoiceMessage(botText)) {
             outMessage = generateVoiceOutMessage(wxMessage, weixinService, botText);
         }
         outMessage = Optional.ofNullable(outMessage)
@@ -76,7 +77,10 @@ public class TextMsgChatBotBiz {
         return content;
     }
 
-    private boolean needVoiceMessage() {
+    private boolean needVoiceMessage(String botText) {
+        if(StringUtils.contains(botText, "语音")){
+            return true;
+        }
         return RandomUtils.nextInt(1, 10) == 1;
     }
 

@@ -20,11 +20,12 @@ spring:
     password: ${DB_PASSWORD}
 ai:
   cfg:
-    text-chat: baidu
+    text-chat: tencent
     ttl-synthesis: tencent
   tencent:
     appid: ${AI_APPID}
     appkey: ${AI_APPKEY}
+    robot-id: ${AI_ROBOT_ID}
   baidu:
     appid: ${BAIDU_AI_APPID}
     appkey: ${BAIDU_AI_APPKEY}

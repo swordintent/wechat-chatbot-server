@@ -1,12 +1,9 @@
 package com.swordintent.wx.mp.dependency.impl.tencentai;
 
-import cn.xsshome.taip.nlp.TAipNlp;
-import com.swordintent.wx.mp.dependency.impl.tencentai.dto.TencentAiNlpTextChatRet;
 import com.swordintent.wx.mp.dependency.NlpTextChatService;
-import com.swordintent.wx.mp.utils.JsonUtils;
+import com.swordintent.wx.mp.dependency.util.TencentAiRobotClient;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
 /**
  * 腾讯AI平台聊天机器人实现
@@ -15,18 +12,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TencentAiNlpTextChatImpl implements NlpTextChatService {
 
-    private final TAipNlp tAipNlp;
+    private final TencentAiRobotClient client;
 
     @Override
     public String chat(String session, String content) throws Exception {
         if(StringUtils.isEmpty(content)){
             return null;
         }
-        String ret = tAipNlp.nlpTextchat(session, content);
-        TencentAiNlpTextChatRet tencentAiNlpTextChatRet = JsonUtils.fromJson(ret, TencentAiNlpTextChatRet.class);
-        if(tencentAiNlpTextChatRet.getRet() == 0){
-            return tencentAiNlpTextChatRet.getData().getAnswer();
-        }
-        return null;
+
+        return client.robotChat(session, content);
     }
 }

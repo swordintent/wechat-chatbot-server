@@ -4,7 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.swordintent.wx.mp.dependency.NlpTextChatService;
 import com.swordintent.wx.mp.dependency.impl.baiduai.dto.RobotResponse;
-import com.swordintent.wx.mp.dependency.util.BaiduAipClient;
+import com.swordintent.wx.mp.dependency.util.BaiduAiRobotClient;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class BaiduAiNlpTextChatImpl implements NlpTextChatService {
 
-    private final BaiduAipClient baiduAipClient;
+    private final BaiduAiRobotClient baiduAiRobotClient;
 
     private static Cache<String, Optional<String>> SESSION_CACHE = CacheBuilder.newBuilder()
             .expireAfterAccess(5, TimeUnit.MINUTES).maximumSize(10000).build();
@@ -30,7 +30,7 @@ public class BaiduAiNlpTextChatImpl implements NlpTextChatService {
         if (StringUtils.isEmpty(content)) {
             return null;
         }
-        RobotResponse robotResponse = baiduAipClient.robotChat(UUID.randomUUID().toString(),
+        RobotResponse robotResponse = baiduAiRobotClient.robotChat(UUID.randomUUID().toString(),
                 SESSION_CACHE.get(session, () -> Optional.empty()).orElse(""),
                 session,
                 content);

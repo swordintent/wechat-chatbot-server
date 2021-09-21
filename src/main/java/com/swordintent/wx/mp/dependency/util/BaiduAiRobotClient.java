@@ -18,12 +18,12 @@ import java.util.List;
 /**
  * @author liuhe
  */
-public class BaiduAipClient extends AipNlp {
+public class BaiduAiRobotClient extends AipNlp {
 
     private static final String UNIT_CHAT_URI = "https://aip.baidubce.com/rpc/2.0/unit/service/chat";
     private final String robotId;
 
-    public BaiduAipClient(String appId, String apiKey, String secretKey, String robotId) {
+    public BaiduAiRobotClient(String appId, String apiKey, String secretKey, String robotId) {
         super(appId, apiKey, secretKey);
         this.robotId = robotId;
     }

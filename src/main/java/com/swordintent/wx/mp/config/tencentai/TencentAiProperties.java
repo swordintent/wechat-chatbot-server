@@ -17,6 +17,9 @@ public class TencentAiProperties {
     private String appid;
 
     private String appkey;
+
+    private String robotId;
+
     @Override
     public String toString() {
         return JsonUtils.toJson(this);
