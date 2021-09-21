@@ -80,8 +80,12 @@ public class TextMsgChatBotBiz {
 
     private boolean needVoiceMessage(WxMpXmlMessage wxMessage, String retContent) {
         String userInputContent = getUserInputContent(wxMessage);
-        if(StringUtils.length(userInputContent) > 150){
+        if(StringUtils.length(retContent) > 150){
             return false;
+        }
+
+        if(StringUtils.contains(retContent, "爱")){
+            return true;
         }
 
         if(StringUtils.contains(userInputContent, "声音")){
@@ -90,10 +94,8 @@ public class TextMsgChatBotBiz {
         if(StringUtils.contains(userInputContent, "语音")){
             return true;
         }
-        if(StringUtils.contains(retContent, "爱")){
-            return true;
-        }
-        return RandomUtils.nextInt(1, 10) == 1;
+
+        return RandomUtils.nextInt(1, 4) == 1;
     }
 
     private WxMpXmlOutVoiceMessage generateVoiceOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String content) {
