@@ -15,6 +15,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.PatternMatchUtils;
 
 import java.util.Map;
 import java.util.Optional;
@@ -39,10 +40,10 @@ public class TextMsgChatBotBiz {
     public WxMpXmlOutMessage process(WxMpXmlMessage wxMessage,
                                      Map<String, Object> context, WxMpService weixinService,
                                      WxSessionManager sessionManager) throws Exception {
-        String input = getUserInputContent(wxMessage);
+        String inputContent = getUserInputContent(wxMessage);
         String fromUser = getFromUser(wxMessage);
-        String botText = chatWithbot(input, fromUser);
-        recordChatInfo(input, fromUser, botText);
+        String botText = chatWithbot(inputContent, fromUser);
+        recordChatInfo(inputContent, fromUser, botText);
         return buildTextOrVoiceOutMessage(wxMessage, weixinService, botText);
     }
 
@@ -52,7 +53,7 @@ public class TextMsgChatBotBiz {
 
     private WxMpXmlOutMessage buildTextOrVoiceOutMessage(WxMpXmlMessage wxMessage, WxMpService weixinService, String botText) {
         WxMpXmlOutMessage outMessage = null;
-        if (needVoiceMessage(botText)) {
+        if (needVoiceMessage(wxMessage, botText)) {
             outMessage = generateVoiceOutMessage(wxMessage, weixinService, botText);
         }
         outMessage = Optional.ofNullable(outMessage)
@@ -77,8 +78,19 @@ public class TextMsgChatBotBiz {
         return content;
     }
 
-    private boolean needVoiceMessage(String botText) {
-        if(StringUtils.contains(botText, "语音")){
+    private boolean needVoiceMessage(WxMpXmlMessage wxMessage, String retContent) {
+        String userInputContent = getUserInputContent(wxMessage);
+        if(StringUtils.length(userInputContent) > 150){
+            return false;
+        }
+
+        if(StringUtils.contains(userInputContent, "声音")){
+            return true;
+        }
+        if(StringUtils.contains(userInputContent, "语音")){
+            return true;
+        }
+        if(StringUtils.contains(retContent, "爱")){
             return true;
         }
         return RandomUtils.nextInt(1, 10) == 1;
