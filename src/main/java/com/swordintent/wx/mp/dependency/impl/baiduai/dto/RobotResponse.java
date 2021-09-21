@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * @author liuhe
+ *
  */
 @Data
 public class RobotResponse {
@@ -15,6 +16,7 @@ public class RobotResponse {
     @Data
     public static class RobotResponseInner {
         private String session_id;
+        private String log_id;
         private List<ResponseItem> response_list;
 
         @Data

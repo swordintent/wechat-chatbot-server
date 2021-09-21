@@ -28,6 +28,16 @@ public class BaiduAipClient extends AipNlp {
         this.robotId = robotId;
     }
 
+    /**
+     *
+     * @param uniqId 开发者需要在客户端生成的唯一id，用来定位请求，响应中会返回该字段。对话中每轮请求都需要一个log_id
+     * @param sessionId session保存机器人的历史会话信息，由机器人创建，客户端从上轮应答中取出并直接传递，不需要了解其内容。如果为空，
+     *                  则表示清空session（开发者判断用户意图已经切换且下一轮会话不需要继承上一轮会话中的词槽信息时可以把session置空，从而进行新一轮的会话）
+     * @param userId 与技能对话的用户id（如果客户端是用户未登录状态情况下对话的，也需要尽量通过其他标识（比如设备id）来唯一区分用户），
+     *               方便今后在平台的日志分析模块定位分析问题、从用户维度统计分析相关对话情况。
+     * @param content 内容
+     * @return 机器人响应
+     */
     public RobotResponse robotChat(String uniqId, String sessionId, String userId, String content) {
         AipRequest request = new AipRequest();
         preOperation(request);

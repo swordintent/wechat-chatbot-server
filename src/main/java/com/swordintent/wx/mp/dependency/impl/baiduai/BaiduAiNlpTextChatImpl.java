@@ -30,8 +30,10 @@ public class BaiduAiNlpTextChatImpl implements NlpTextChatService {
         if (StringUtils.isEmpty(content)) {
             return null;
         }
-        RobotResponse robotResponse = baiduAipClient.robotChat(SESSION_CACHE.get(session, () -> Optional.empty())
-                .orElseGet(() -> UUID.randomUUID().toString()), session, session, content);
+        RobotResponse robotResponse = baiduAipClient.robotChat(UUID.randomUUID().toString(),
+                SESSION_CACHE.get(session, () -> Optional.empty()).orElse(""),
+                session,
+                content);
         if (robotResponse.getError_code() == 0) {
             return Optional.ofNullable(robotResponse.getResult()).map(e -> {
                 SESSION_CACHE.put(session, Optional.ofNullable(e.getSession_id()));

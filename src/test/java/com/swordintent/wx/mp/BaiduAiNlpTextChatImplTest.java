@@ -26,7 +26,13 @@ public class BaiduAiNlpTextChatImplTest {
     @Test
     public void chat() throws Exception {
         String ret = baiduNlpTextChat.chat("123456", "你好");
+        System.out.println(ret);
+        Thread.sleep(1000);
         ret = baiduNlpTextChat.chat("123456", "我不好");
+        Thread.sleep(1000);
+        System.out.println(ret);
         ret = baiduNlpTextChat.chat("123456", "不知道");
+        Thread.sleep(1000);
+        System.out.println(ret);
     }
 }
