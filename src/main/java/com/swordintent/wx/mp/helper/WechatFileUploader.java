@@ -1,6 +1,5 @@
 package com.swordintent.wx.mp.helper;
 
-import com.swordintent.wx.mp.biz.bot.TextMsgChatBotBiz;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -43,6 +42,7 @@ public class WechatFileUploader {
 
     private File writeVoiceDataToFile(String prefix, byte[] data) throws IOException {
         File tempFile = File.createTempFile(prefix, ".mp3");
+        tempFile.deleteOnExit();
         FileUtils.writeByteArrayToFile(tempFile, data);
         return tempFile;
     }

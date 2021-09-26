@@ -4,7 +4,7 @@ import com.swordintent.wx.mp.handler.LogHandler;
 import com.swordintent.wx.mp.handler.MsgHandler;
 import com.swordintent.wx.mp.handler.SubscribeHandler;
 import com.swordintent.wx.mp.handler.UnsubscribeHandler;
-import com.swordintent.wx.mp.handler.bot.ChatBotHandler;
+import com.swordintent.wx.mp.handler.bot.CommonBotServiceHandler;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -40,7 +40,7 @@ public class WxMpConfiguration {
 
     private final WxMpProperties properties;
 
-    private final ChatBotHandler chatBotHandler;
+    private final CommonBotServiceHandler commonBotServiceHandler;
 
     @Bean
     public WxMpService wxMpService() {
@@ -77,7 +77,7 @@ public class WxMpConfiguration {
 
     private void handleVoiceMsg(WxMpMessageRouter router) {
         //聊天
-        router.rule().async(false).msgType(VOICE).matcher(this.chatBotHandler).handler(this.chatBotHandler).end();
+        router.rule().async(false).msgType(VOICE).matcher(this.commonBotServiceHandler).handler(this.commonBotServiceHandler).end();
     }
 
     private WxMpMessageRouter defaultHandle(WxMpMessageRouter router) {
@@ -87,7 +87,8 @@ public class WxMpConfiguration {
 
     private void handleTextMsg(WxMpMessageRouter router) {
         //聊天
-        router.rule().async(false).msgType(TEXT).matcher(this.chatBotHandler).handler(this.chatBotHandler).end();
+        router.rule().async(false).msgType(TEXT).matcher(this.commonBotServiceHandler).handler(this.commonBotServiceHandler).end();
+        router.rule().async(false).msgType(TEXT).matcher(this.commonBotServiceHandler).handler(this.commonBotServiceHandler).end();
     }
 
     private WxMpMessageRouter logMsg(WxMpMessageRouter router) {
