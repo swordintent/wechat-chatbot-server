@@ -34,9 +34,11 @@ public class CommonBotServiceHandler extends MsgHandler {
                                     WxSessionManager sessionManager) {
         try {
             //获取用户所在模式
-            ContextMode contextMode = contextModeDao.getContextMode(wxMessage.getFromUser());
+            String fromUser = wxMessage.getFromUser();
+            ContextMode contextMode = contextModeDao.getContextMode(fromUser);
             //基于所在模式进行逻辑处理
             BotBiz bot = botBizFactory.getBot(contextMode);
+            logger.info("user is:{}, context mode is:{}, bot is:{}", fromUser, contextMode, bot);
             return bot.process(wxMessage, context, weixinService, sessionManager);
         } catch (Exception e) {
             logger.error(String.format("wxMessage:%s", wxMessage), e);
