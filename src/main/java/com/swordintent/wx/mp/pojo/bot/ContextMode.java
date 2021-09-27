@@ -20,6 +20,7 @@ public enum ContextMode {
 
     ContextMode(int value, String cmd, String desc) {
         this.value = value;
+        this.cmd = cmd;
         this.desc = desc;
     }
 
