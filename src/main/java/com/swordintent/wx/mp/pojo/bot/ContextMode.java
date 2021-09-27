@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum ContextMode {
 
-    DEFAULT(0, "恢复默认", "默认模式"),
+    DEFAULT(0, "恢复默认", "默认"),
     TEXT_CHAT(1, "我要文字聊天", "文字聊天"),
     VOICE_CHAT(2, "我要语音聊天", "语音聊天"),
     VOICE_TRANSLATE(3, "我要转换文字", "文字语音转换"),

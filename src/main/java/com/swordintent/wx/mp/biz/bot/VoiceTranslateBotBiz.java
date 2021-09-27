@@ -1,5 +1,6 @@
 package com.swordintent.wx.mp.biz.bot;
 
+import com.swordintent.wx.mp.builder.TextBuilder;
 import com.swordintent.wx.mp.builder.VoiceBuilder;
 import com.swordintent.wx.mp.dao.bot.ChatBotInfoRecorder;
 import com.swordintent.wx.mp.service.TtlSynthesisVoiceMediaService;
@@ -9,6 +10,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutVoiceMessage;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -36,6 +38,9 @@ public class VoiceTranslateBotBiz implements BotBiz {
         String inputContent = getUserInputContent(wxMessage);
         String fromUser = getFromUser(wxMessage);
         recordChatInfo(inputContent, fromUser, "[语音回复]");
+        if(StringUtils.length(inputContent) > 150){
+            return new TextBuilder("字数太多了，请限制在150个字符以内哦（含标点符号）").build(wxMessage, weixinService);
+        }
         return generateVoiceOutMessage(wxMessage, weixinService, inputContent);
     }
 
