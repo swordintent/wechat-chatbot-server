@@ -7,10 +7,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum ContextMode {
 
-    DEFAULT(0, "恢复默认", "默认模式（文字+语音闲聊）"),
-    TEXT_CHAT(1, "我要文字聊天", "文字闲聊（全文字回复）"),
-    VOICE_CHAT(2, "我要语音聊天", "语音闲聊（全语音回复）"),
-    VOICE_TRANSLATE(3, "我要转换文字", "语音转换模式"),
+    DEFAULT(0, "恢复默认", "默认模式"),
+    TEXT_CHAT(1, "我要文字聊天", "文字聊天"),
+    VOICE_CHAT(2, "我要语音聊天", "语音聊天"),
+    VOICE_TRANSLATE(3, "我要转换文字", "文字语音转换"),
     IMAGE_QUERY(4, "我要图", "图片卡通化"),
     ;
 
@@ -26,6 +26,10 @@ public enum ContextMode {
 
     public String getDesc() {
         return desc;
+    }
+
+    public String getCmd() {
+        return cmd;
     }
 
     public static ContextMode getMode(String text){

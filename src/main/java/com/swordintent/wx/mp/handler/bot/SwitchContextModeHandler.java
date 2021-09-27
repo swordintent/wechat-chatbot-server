@@ -31,7 +31,7 @@ public class SwitchContextModeHandler extends MsgHandler {
         try {
             ContextMode mode = getContextMode(wxMessage);
             setContextMode(wxMessage, mode);
-            return new TextBuilder("切换模式成功").build(wxMessage, weixinService);
+            return new TextBuilder(String.format("切换至[%s]模式成功", mode.getDesc())).build(wxMessage, weixinService);
         } catch (Exception e) {
             logger.error(String.format("wxMessage:%s", wxMessage), e);
         }

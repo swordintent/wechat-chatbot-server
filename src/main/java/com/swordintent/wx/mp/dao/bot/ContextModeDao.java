@@ -43,6 +43,6 @@ public class ContextModeDao {
     }
 
     public void setContextMode(String user, ContextMode contextMode){
-        CACHE.put(user, contextMode.getDesc());
+        CACHE.put(user, contextMode.getCmd());
     }
 }
