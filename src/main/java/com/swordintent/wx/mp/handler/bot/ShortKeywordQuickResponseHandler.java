@@ -35,8 +35,8 @@ public class ShortKeywordQuickResponseHandler extends MsgHandler {
     private static String getQueryCommand() {
         ContextMode[] values = ContextMode.values();
         StringBuilder sb = new StringBuilder();
-        sb.append("回复\n");
-        String collect = Arrays.stream(values).map((x) -> String.format("%s:切换至[%s]模式\n", x.getCmd(), x.getDesc()))
+        sb.append("请回复：\n");
+        String collect = Arrays.stream(values).map((x) -> String.format("%s：切换至[%s]模式\n\n", x.getCmd(), x.getDesc()))
                 .collect(Collectors.joining());
         sb.append(collect);
         String queryCommand = sb.toString();
