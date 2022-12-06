@@ -1,4 +1,9 @@
-FROM openjdk:8-jdk-alpine
+FROM --platform=linux/amd64 openjdk:8-jdk-alpine as stage-amd64
+FROM --platform=linux/arm64 arm64v8/openjdk:8-jdk-alpine as stage-arm64
+
+ARG TARGETARCH
+FROM stage-${TARGETARCH} as final
+
 VOLUME /opt/logs/
 ADD wechat-chatbot-server-1.0.0-SNAPSHOT.jar app.jar
 
