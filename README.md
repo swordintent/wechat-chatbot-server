@@ -1,6 +1,12 @@
 # wechat-chatbot-server
 目前支持文本聊天，同时利用微信公众号的语音识别能力，可实现接收用户语音消息进行文字聊天
 
+demo可搜索关注`swordintent`公众号
+
+![swordintent](https://user-images.githubusercontent.com/5930898/216934000-69578806-1e84-408a-8a88-912e1bd0df80.jpg)
+
+
+
 ![maven compile and publish to docker hub](https://github.com/liuhe36/wechat-chatbot-server/workflows/maven%20compile%20and%20publish%20to%20docker%20hub/badge.svg)
 
 # 使用方法
